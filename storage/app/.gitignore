@@ -1,0 +1,8 @@
+*
+!private/
+!public/
+!books/
+!audio/
+!chunks/
+!transcripts/
+!.gitignore
