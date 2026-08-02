@@ -16,6 +16,10 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->throttleApi();
         $middleware->append(SecurityHeaders::class);
+
+        // This app has no web "login" route (API-only + Filament's own guard),
+        // so unauthenticated guests must never be redirected — just 401.
+        $middleware->redirectGuestsTo(fn () => null);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
