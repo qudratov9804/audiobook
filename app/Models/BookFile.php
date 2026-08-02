@@ -31,6 +31,15 @@ class BookFile extends Model
         ];
     }
 
+    protected static function booted(): void
+    {
+        static::deleting(function (BookFile $file): void {
+            if ($file->path) {
+                $file->storage()->delete($file->path);
+            }
+        });
+    }
+
     /**
      * @return BelongsTo<Book, $this>
      */

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 #[Fillable([
@@ -31,6 +32,18 @@ class Book extends Model
             if (blank($book->slug)) {
                 $book->slug = Str::slug($book->title).'-'.Str::random(6);
             }
+        });
+
+        // Sections/files are cascade-deleted at the DB level, which bypasses
+        // their own model events, so their physical files must be cleaned up
+        // here explicitly before the row (and DB cascade) disappears.
+        static::forceDeleting(function (Book $book): void {
+            if ($book->cover_path) {
+                Storage::disk('public')->delete($book->cover_path);
+            }
+
+            $book->sections()->get()->each->delete();
+            $book->files()->get()->each->delete();
         });
     }
 
