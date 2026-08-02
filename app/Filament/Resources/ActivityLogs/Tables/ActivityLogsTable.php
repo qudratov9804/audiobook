@@ -14,23 +14,28 @@ class ActivityLogsTable
         return $table
             ->columns([
                 TextColumn::make('user.name')
-                    ->label('User')
-                    ->placeholder('System')
+                    ->label('Foydalanuvchi')
+                    ->placeholder('Tizim')
                     ->searchable(),
                 TextColumn::make('action')
+                    ->label('Amal')
                     ->badge()
                     ->searchable(),
                 TextColumn::make('description')
+                    ->label('Tavsif')
                     ->limit(60)
                     ->searchable(),
                 TextColumn::make('ip_address')
+                    ->label('IP manzil')
                     ->toggleable(),
                 TextColumn::make('created_at')
+                    ->label('Sana')
                     ->dateTime()
                     ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('action')
+                    ->label('Amal')
                     ->options(fn () => \App\Models\ActivityLog::query()
                         ->distinct()
                         ->pluck('action', 'action')

@@ -23,7 +23,6 @@ class BookFactory extends Factory
             'title' => fake()->sentence(3),
             'author' => fake()->name(),
             'description' => fake()->paragraph(),
-            'status' => Book::STATUS_PENDING,
         ];
     }
 }

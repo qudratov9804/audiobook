@@ -20,7 +20,7 @@ class BookController extends Controller
      * List books
      *
      * Paginated, filterable list of books. Supports `q`, `category_id`,
-     * `language_id`, `status`, `sort` and `per_page` query parameters.
+     * `language_id`, `sort` and `per_page` query parameters.
      */
     public function index(BookIndexRequest $request): JsonResponse
     {
@@ -50,7 +50,6 @@ class BookController extends Controller
         $book = $this->books->create([
             ...$request->validated(),
             'user_id' => $request->user()->id,
-            'status' => Book::STATUS_PENDING,
         ]);
 
         return (new BookResource($book->load(['category', 'language', 'user'])))
@@ -65,7 +64,7 @@ class BookController extends Controller
     {
         $this->authorize('view', $book);
 
-        return new BookResource($book->load(['category', 'language', 'user', 'audioFile', 'finalTranscript']));
+        return new BookResource($book->load(['category', 'language', 'user', 'sections']));
     }
 
     /**
@@ -83,7 +82,7 @@ class BookController extends Controller
     /**
      * Delete book
      *
-     * Deletes the book along with its uploaded files, audio chunks and transcripts.
+     * Deletes the book along with its uploaded files and sections.
      */
     public function destroy(Request $request, Book $book): JsonResponse
     {

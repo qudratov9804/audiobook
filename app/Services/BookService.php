@@ -48,17 +48,8 @@ class BookService
             Storage::disk($file->disk)->delete($file->path);
         }
 
-        foreach ($book->audioFiles as $audioFile) {
-            foreach ($audioFile->chunks as $chunk) {
-                Storage::disk($chunk->disk)->delete($chunk->path);
-            }
-            Storage::disk($audioFile->disk)->delete($audioFile->path);
-        }
-
-        foreach ($book->transcripts as $transcript) {
-            if ($transcript->path) {
-                Storage::disk($transcript->disk)->delete($transcript->path);
-            }
+        foreach ($book->sections as $section) {
+            Storage::disk($section->disk)->delete($section->path);
         }
 
         $title = $book->title;

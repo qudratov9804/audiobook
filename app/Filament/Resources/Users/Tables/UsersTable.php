@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Users\Tables;
 
+use App\Filament\Resources\Users\Schemas\UserForm;
 use App\Models\User;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -19,30 +20,34 @@ class UsersTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label('Ism')
                     ->searchable(),
                 TextColumn::make('email')
-                    ->label('Email address')
+                    ->label('Elektron pochta manzili')
                     ->searchable(),
                 TextColumn::make('role')
+                    ->label('Rol')
                     ->badge()
+                    ->formatStateUsing(fn (string $state): string => UserForm::roleOptions()[$state] ?? $state)
                     ->color(fn (string $state): string => $state === User::ROLE_ADMIN ? 'danger' : 'gray'),
                 IconColumn::make('is_active')
+                    ->label('Faol')
                     ->boolean(),
                 TextColumn::make('books_count')
                     ->counts('books')
-                    ->label('Books'),
+                    ->label('Kitoblar'),
                 TextColumn::make('created_at')
+                    ->label('Yaratilgan')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('role')
-                    ->options([
-                        User::ROLE_ADMIN => 'Admin',
-                        User::ROLE_USER => 'User',
-                    ]),
-                TernaryFilter::make('is_active'),
+                    ->label('Rol')
+                    ->options(UserForm::roleOptions()),
+                TernaryFilter::make('is_active')
+                    ->label('Faol'),
             ])
             ->recordActions([
                 EditAction::make(),

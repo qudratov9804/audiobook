@@ -23,11 +23,13 @@ class QueueMonitor extends Page implements HasTable
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedQueueList;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Pipeline';
+    protected static string|UnitEnum|null $navigationGroup = 'Konveyer';
 
     protected static ?int $navigationSort = 3;
 
-    protected static ?string $title = 'Queue Monitor';
+    protected static ?string $title = 'Navbat monitori';
+
+    protected static ?string $navigationLabel = 'Navbat monitori';
 
     public function getPendingJobsCount(): int
     {
@@ -53,21 +55,27 @@ class QueueMonitor extends Page implements HasTable
                     ->label('UUID')
                     ->limit(12)
                     ->copyable(),
-                TextColumn::make('connection'),
-                TextColumn::make('queue'),
+                TextColumn::make('connection')
+                    ->label('Ulanish'),
+                TextColumn::make('queue')
+                    ->label('Navbat'),
                 TextColumn::make('exception')
+                    ->label('Xatolik')
                     ->limit(80)
                     ->wrap(),
                 TextColumn::make('failed_at')
+                    ->label('Muvaffaqiyatsiz bo\'lgan vaqti')
                     ->dateTime()
                     ->sortable(),
             ])
             ->recordActions([
                 Action::make('retry')
+                    ->label('Qayta urinish')
                     ->icon(Heroicon::OutlinedArrowPath)
                     ->action(fn (FailedJob $record) => Artisan::call('queue:retry', ['id' => [$record->id]]))
                     ->requiresConfirmation(),
                 Action::make('delete')
+                    ->label('O\'chirish')
                     ->icon(Heroicon::OutlinedTrash)
                     ->color('danger')
                     ->action(fn (FailedJob $record) => $record->delete())
@@ -80,12 +88,12 @@ class QueueMonitor extends Page implements HasTable
     {
         return [
             Action::make('retryAll')
-                ->label('Retry all failed')
+                ->label('Barchasini qayta urinish')
                 ->icon(Heroicon::OutlinedArrowPath)
                 ->action(fn () => Artisan::call('queue:retry', ['id' => ['all']]))
                 ->requiresConfirmation(),
             Action::make('flushAll')
-                ->label('Flush all failed')
+                ->label('Barchasini tozalash')
                 ->icon(Heroicon::OutlinedTrash)
                 ->color('danger')
                 ->action(fn () => Artisan::call('queue:flush'))

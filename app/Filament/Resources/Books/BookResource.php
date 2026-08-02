@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Books;
 use App\Filament\Resources\Books\Pages\CreateBook;
 use App\Filament\Resources\Books\Pages\EditBook;
 use App\Filament\Resources\Books\Pages\ListBooks;
+use App\Filament\Resources\Books\RelationManagers\SectionsRelationManager;
 use App\Filament\Resources\Books\Schemas\BookForm;
 use App\Filament\Resources\Books\Tables\BooksTable;
 use App\Models\Book;
@@ -23,9 +24,15 @@ class BookResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBookOpen;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Content';
+    protected static string|UnitEnum|null $navigationGroup = 'Kontent';
 
     protected static ?int $navigationSort = 1;
+
+    protected static ?string $modelLabel = 'kitob';
+
+    protected static ?string $pluralModelLabel = 'kitoblar';
+
+    protected static ?string $navigationLabel = 'Kitoblar';
 
     public static function form(Schema $schema): Schema
     {
@@ -40,7 +47,7 @@ class BookResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            SectionsRelationManager::class,
         ];
     }
 

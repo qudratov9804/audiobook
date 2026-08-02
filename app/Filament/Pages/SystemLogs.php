@@ -15,11 +15,13 @@ class SystemLogs extends Page
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentMagnifyingGlass;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Administration';
+    protected static string|UnitEnum|null $navigationGroup = 'Boshqaruv';
 
     protected static ?int $navigationSort = 4;
 
-    protected static ?string $title = 'System Logs';
+    protected static ?string $title = 'Tizim jurnali';
+
+    protected static ?string $navigationLabel = 'Tizim jurnali';
 
     public int $lines = 200;
 
@@ -28,7 +30,7 @@ class SystemLogs extends Page
         $path = storage_path('logs/laravel.log');
 
         if (! File::exists($path)) {
-            return 'No log file found.';
+            return 'Jurnal fayli topilmadi.';
         }
 
         $content = File::get($path);
@@ -52,10 +54,11 @@ class SystemLogs extends Page
     {
         return [
             Action::make('refresh')
+                ->label('Yangilash')
                 ->icon(Heroicon::OutlinedArrowPath)
                 ->action(fn () => null),
             Action::make('clear')
-                ->label('Clear log')
+                ->label('Jurnalni tozalash')
                 ->icon(Heroicon::OutlinedTrash)
                 ->color('danger')
                 ->requiresConfirmation()

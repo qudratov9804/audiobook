@@ -13,12 +13,15 @@ class LanguageForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label('Nomi')
                     ->required(),
                 TextInput::make('code')
+                    ->label('Kodi')
                     ->required()
                     ->unique(ignoreRecord: true)
                     ->maxLength(10),
                 Toggle::make('is_active')
+                    ->label('Faol')
                     ->default(true)
                     ->required(),
             ]);

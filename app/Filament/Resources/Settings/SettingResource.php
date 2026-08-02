@@ -21,9 +21,15 @@ class SettingResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCog6Tooth;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Administration';
+    protected static string|UnitEnum|null $navigationGroup = 'Boshqaruv';
 
     protected static ?int $navigationSort = 2;
+
+    protected static ?string $modelLabel = 'sozlama';
+
+    protected static ?string $pluralModelLabel = 'sozlamalar';
+
+    protected static ?string $navigationLabel = 'Sozlamalar';
 
     public static function form(Schema $schema): Schema
     {

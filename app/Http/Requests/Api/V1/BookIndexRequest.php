@@ -26,7 +26,6 @@ class BookIndexRequest extends FormRequest
             'q' => ['sometimes', 'string', 'max:255'],
             'category_id' => ['sometimes', 'integer', 'exists:categories,id'],
             'language_id' => ['sometimes', 'integer', 'exists:languages,id'],
-            'status' => ['sometimes', 'string', 'in:pending,processing,transcribing,completed,failed'],
             'sort' => ['sometimes', 'string'],
             'per_page' => ['sometimes', 'integer', 'min:1', 'max:100'],
             'page' => ['sometimes', 'integer', 'min:1'],

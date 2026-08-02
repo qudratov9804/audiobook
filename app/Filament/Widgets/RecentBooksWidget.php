@@ -12,7 +12,7 @@ class RecentBooksWidget extends TableWidget
 {
     protected static ?int $sort = 5;
 
-    protected static ?string $heading = 'Recent Uploads';
+    protected static ?string $heading = 'So\'nggi yuklamalar';
 
     protected int|string|array $columnSpan = 'full';
 
@@ -22,14 +22,13 @@ class RecentBooksWidget extends TableWidget
             ->query(fn (): Builder => Book::query()->with(['user'])->latest()->limit(10))
             ->columns([
                 TextColumn::make('title')
+                    ->label('Sarlavha')
                     ->searchable(),
                 TextColumn::make('user.name')
-                    ->label('Uploaded by'),
-                TextColumn::make('status')
-                    ->badge(),
+                    ->label('Yukladi'),
                 TextColumn::make('created_at')
                     ->dateTime()
-                    ->label('Uploaded'),
+                    ->label('Yuklangan'),
             ])
             ->paginated(false);
     }

@@ -74,20 +74,6 @@ return [
             'report' => false,
         ],
 
-        'chunks' => [
-            'driver' => 'local',
-            'root' => storage_path('app/chunks'),
-            'throw' => false,
-            'report' => false,
-        ],
-
-        'transcripts' => [
-            'driver' => 'local',
-            'root' => storage_path('app/transcripts'),
-            'throw' => false,
-            'report' => false,
-        ],
-
     ],
 
     /*

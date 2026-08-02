@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Book;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -32,8 +33,6 @@ class AdminPanelSmokeTest extends TestCase
             '/admin/users',
             '/admin/categories',
             '/admin/languages',
-            '/admin/audio-files',
-            '/admin/transcripts',
             '/admin/settings',
             '/admin/activity-logs',
             '/admin/queue-monitor',
@@ -53,5 +52,46 @@ class AdminPanelSmokeTest extends TestCase
         ]);
 
         $this->actingAs($user)->get('/admin')->assertForbidden();
+    }
+
+    public function test_panel_is_localized_to_uzbek(): void
+    {
+        $admin = User::factory()->create([
+            'role' => User::ROLE_ADMIN,
+            'is_active' => true,
+        ]);
+
+        $this->get('/admin/login')
+            ->assertOk()
+            ->assertSee('Tizimga kirish')
+            ->assertSee('Parol');
+
+        $this->actingAs($admin)->get('/admin/books')
+            ->assertOk()
+            ->assertSee('Kitoblar')
+            ->assertSee('Sarlavha');
+
+        $this->actingAs($admin)->get('/admin')
+            ->assertOk()
+            ->assertSee('Asosiy panel')
+            ->assertSee('Faoliyat jurnali');
+    }
+
+    public function test_admin_can_view_book_create_and_edit_wizard(): void
+    {
+        $admin = User::factory()->create([
+            'role' => User::ROLE_ADMIN,
+            'is_active' => true,
+        ]);
+        $book = Book::factory()->create(['user_id' => $admin->id]);
+
+        $this->actingAs($admin)->get('/admin/books/create')
+            ->assertOk()
+            ->assertSee('Sarlavha');
+
+        $this->actingAs($admin)->get("/admin/books/{$book->id}/edit")
+            ->assertOk()
+            ->assertSee('Muqova yuklash')
+            ->assertSee('Bo\'limlar');
     }
 }

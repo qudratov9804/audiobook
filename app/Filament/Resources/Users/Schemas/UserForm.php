@@ -10,33 +10,42 @@ use Filament\Schemas\Schema;
 
 class UserForm
 {
+    public static function roleOptions(): array
+    {
+        return [
+            User::ROLE_ADMIN => 'Administrator',
+            User::ROLE_USER => 'Foydalanuvchi',
+        ];
+    }
+
     public static function configure(Schema $schema): Schema
     {
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label('Ism')
                     ->required()
                     ->maxLength(255),
                 TextInput::make('email')
-                    ->label('Email address')
+                    ->label('Elektron pochta manzili')
                     ->email()
                     ->required()
                     ->unique(ignoreRecord: true)
                     ->maxLength(255),
                 TextInput::make('password')
+                    ->label('Parol')
                     ->password()
                     ->required(fn (string $operation): bool => $operation === 'create')
                     ->dehydrated(fn (?string $state): bool => filled($state))
                     ->maxLength(255)
                     ->revealable(),
                 Select::make('role')
-                    ->options([
-                        User::ROLE_ADMIN => 'Admin',
-                        User::ROLE_USER => 'User',
-                    ])
+                    ->label('Rol')
+                    ->options(self::roleOptions())
                     ->required()
                     ->default(User::ROLE_USER),
                 Toggle::make('is_active')
+                    ->label('Faol')
                     ->default(true)
                     ->required(),
             ]);

@@ -17,8 +17,6 @@ class UploadController extends Controller
      * Upload a book file
      *
      * Upload a PDF, DOCX, TXT, MP3 or WAV file and attach it to a book.
-     * Audio files (MP3/WAV) become available for transcription via the
-     * `/books/{id}/transcribe` endpoint.
      */
     public function store(UploadRequest $request): JsonResponse
     {

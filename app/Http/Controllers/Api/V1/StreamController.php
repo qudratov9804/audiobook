@@ -21,7 +21,7 @@ class StreamController extends Controller
     {
         $this->authorize('view', $book);
 
-        $audioFile = $book->audioFiles()->latest()->firstOrFail();
+        $audioFile = $book->sections()->latest()->firstOrFail();
 
         $path = Storage::disk($audioFile->disk)->path($audioFile->path);
 
@@ -43,7 +43,7 @@ class StreamController extends Controller
     {
         $this->authorize('view', $book);
 
-        $audioFile = $book->audioFiles()->latest()->firstOrFail();
+        $audioFile = $book->sections()->latest()->firstOrFail();
 
         $path = Storage::disk($audioFile->disk)->path($audioFile->path);
 

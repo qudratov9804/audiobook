@@ -15,19 +15,25 @@ class SettingsTable
         return $table
             ->columns([
                 TextColumn::make('group')
+                    ->label('Guruh')
                     ->badge()
                     ->searchable(),
                 TextColumn::make('key')
+                    ->label('Kalit')
                     ->searchable(),
                 TextColumn::make('value')
+                    ->label('Qiymat')
                     ->limit(50),
                 TextColumn::make('type')
+                    ->label('Turi')
                     ->badge(),
                 TextColumn::make('created_at')
+                    ->label('Yaratilgan')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('Yangilangan')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

@@ -20,9 +20,15 @@ class ActivityLogResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClock;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Administration';
+    protected static string|UnitEnum|null $navigationGroup = 'Boshqaruv';
 
     protected static ?int $navigationSort = 3;
+
+    protected static ?string $modelLabel = 'faoliyat';
+
+    protected static ?string $pluralModelLabel = 'faoliyat jurnali';
+
+    protected static ?string $navigationLabel = 'Faoliyat jurnali';
 
     public static function infolist(Schema $schema): Schema
     {

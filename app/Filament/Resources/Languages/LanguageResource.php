@@ -21,9 +21,15 @@ class LanguageResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedLanguage;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Content';
+    protected static string|UnitEnum|null $navigationGroup = 'Kontent';
 
     protected static ?int $navigationSort = 3;
+
+    protected static ?string $modelLabel = 'til';
+
+    protected static ?string $pluralModelLabel = 'tillar';
+
+    protected static ?string $navigationLabel = 'Tillar';
 
     public static function form(Schema $schema): Schema
     {

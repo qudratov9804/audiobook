@@ -87,7 +87,7 @@ class BackupCommand extends Command
         $zip->open($archivePath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
         $zip->addFile($dumpPath, basename($dumpPath));
 
-        foreach (['books', 'audio', 'chunks', 'transcripts'] as $disk) {
+        foreach (['books', 'audio'] as $disk) {
             $path = storage_path("app/{$disk}");
 
             if (! is_dir($path)) {

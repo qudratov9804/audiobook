@@ -16,16 +16,21 @@ class LanguagesTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label('Nomi')
                     ->searchable(),
                 TextColumn::make('code')
+                    ->label('Kodi')
                     ->searchable(),
                 IconColumn::make('is_active')
+                    ->label('Faol')
                     ->boolean(),
                 TextColumn::make('created_at')
+                    ->label('Yaratilgan')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('Yangilangan')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Books\Tables;
 
-use App\Models\Book;
+use App\Filament\Resources\Books\BookMediaActions;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -24,65 +24,58 @@ class BooksTable
                     ->disk('public')
                     ->label(''),
                 TextColumn::make('title')
+                    ->label('Sarlavha')
                     ->searchable()
                     ->sortable()
                     ->weight('bold'),
                 TextColumn::make('author')
+                    ->label('Muallif')
                     ->searchable()
                     ->toggleable(),
                 TextColumn::make('user.name')
-                    ->label('Uploaded by')
+                    ->label('Yukladi')
                     ->searchable(),
                 TextColumn::make('category.name')
+                    ->label('Kategoriya')
                     ->badge()
                     ->searchable(),
                 TextColumn::make('language.name')
+                    ->label('Til')
                     ->searchable()
                     ->toggleable(),
-                TextColumn::make('status')
-                    ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        Book::STATUS_COMPLETED => 'success',
-                        Book::STATUS_FAILED => 'danger',
-                        Book::STATUS_PENDING => 'gray',
-                        default => 'warning',
-                    }),
                 TextColumn::make('duration')
+                    ->label('Davomiyligi')
                     ->numeric()
                     ->sortable()
                     ->formatStateUsing(fn (?int $state) => $state ? gmdate('H:i:s', $state) : '—'),
                 TextColumn::make('created_at')
+                    ->label('Yaratilgan')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('Yangilangan')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('deleted_at')
+                    ->label('O\'chirilgan')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                SelectFilter::make('status')
-                    ->options([
-                        Book::STATUS_PENDING => 'Pending',
-                        Book::STATUS_PROCESSING => 'Processing',
-                        Book::STATUS_TRANSCRIBING => 'Transcribing',
-                        Book::STATUS_COMPLETED => 'Completed',
-                        Book::STATUS_FAILED => 'Failed',
-                    ]),
                 SelectFilter::make('category_id')
                     ->relationship('category', 'name')
-                    ->label('Category'),
+                    ->label('Kategoriya'),
                 SelectFilter::make('language_id')
                     ->relationship('language', 'name')
-                    ->label('Language'),
+                    ->label('Til'),
                 TrashedFilter::make(),
             ])
             ->recordActions([
                 EditAction::make(),
+                BookMediaActions::uploadCover(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

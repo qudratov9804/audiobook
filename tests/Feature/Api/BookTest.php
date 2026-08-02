@@ -32,8 +32,7 @@ class BookTest extends TestCase
         ]);
 
         $response->assertCreated()
-            ->assertJsonPath('data.title', 'The Hobbit')
-            ->assertJsonPath('data.status', 'pending');
+            ->assertJsonPath('data.title', 'The Hobbit');
 
         $this->assertDatabaseHas('books', ['title' => 'The Hobbit']);
     }

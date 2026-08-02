@@ -10,7 +10,7 @@ class DailyUploadsChartWidget extends ChartWidget
 {
     protected static ?int $sort = 3;
 
-    protected ?string $heading = 'Daily Uploads (last 14 days)';
+    protected ?string $heading = 'Kunlik yuklamalar (oxirgi 14 kun)';
 
     protected function getData(): array
     {
@@ -25,7 +25,7 @@ class DailyUploadsChartWidget extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Uploads',
+                    'label' => 'Yuklamalar',
                     'data' => $days->map(fn (Carbon $day) => $counts[$day->toDateString()] ?? 0)->all(),
                 ],
             ],

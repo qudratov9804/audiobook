@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TranscriptResource extends JsonResource
+class BookSectionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,11 @@ class TranscriptResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'is_final' => $this->is_final,
+            'name' => $this->name,
+            'description' => $this->description,
             'format' => $this->format,
-            'status' => $this->status,
-            'content' => $this->when($request->boolean('with_content'), $this->content),
+            'duration' => $this->duration,
+            'size' => $this->size,
             'created_at' => $this->created_at,
         ];
     }

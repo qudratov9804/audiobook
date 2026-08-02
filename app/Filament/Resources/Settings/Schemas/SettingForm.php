@@ -14,18 +14,22 @@ class SettingForm
         return $schema
             ->components([
                 TextInput::make('group')
+                    ->label('Guruh')
                     ->required()
                     ->default('general'),
                 TextInput::make('key')
+                    ->label('Kalit')
                     ->required()
                     ->unique(ignoreRecord: true),
                 Textarea::make('value')
+                    ->label('Qiymat')
                     ->columnSpanFull(),
                 Select::make('type')
+                    ->label('Turi')
                     ->options([
-                        'string' => 'String',
-                        'integer' => 'Integer',
-                        'boolean' => 'Boolean',
+                        'string' => 'Matn',
+                        'integer' => 'Butun son',
+                        'boolean' => 'Mantiqiy (ha/yo\'q)',
                         'json' => 'JSON',
                     ])
                     ->required()

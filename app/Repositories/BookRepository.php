@@ -30,10 +30,6 @@ class BookRepository implements BookRepositoryInterface
             $query->where('language_id', $languageId);
         }
 
-        if ($status = $filters['status'] ?? null) {
-            $query->where('status', $status);
-        }
-
         if ($userId = $filters['user_id'] ?? null) {
             $query->where('user_id', $userId);
         }
@@ -53,12 +49,12 @@ class BookRepository implements BookRepositoryInterface
 
     public function find(int $id): ?Book
     {
-        return $this->model->with(['category', 'language', 'user', 'audioFile', 'finalTranscript'])->find($id);
+        return $this->model->with(['category', 'language', 'user', 'sections'])->find($id);
     }
 
     public function findBySlug(string $slug): ?Book
     {
-        return $this->model->with(['category', 'language', 'user', 'audioFile', 'finalTranscript'])
+        return $this->model->with(['category', 'language', 'user', 'sections'])
             ->where('slug', $slug)->first();
     }
 
