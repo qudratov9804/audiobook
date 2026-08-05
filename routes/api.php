@@ -14,12 +14,12 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
         Route::get('me', [AuthController::class, 'me'])->name('me');
-
-        Route::get('search', [SearchController::class, 'index'])->name('search');
-
-        Route::apiResource('books', BookController::class)->only(['index', 'show']);
-
-        Route::get('books/{book}/stream', [StreamController::class, 'stream'])->name('books.stream');
-        Route::get('books/{book}/download', [StreamController::class, 'download'])->name('books.download');
     });
+
+    Route::get('search', [SearchController::class, 'index'])->name('search');
+
+    Route::apiResource('books', BookController::class)->only(['index', 'show']);
+
+    Route::get('books/{book}/stream', [StreamController::class, 'stream'])->name('books.stream');
+    Route::get('books/{book}/download', [StreamController::class, 'download'])->name('books.download');
 });

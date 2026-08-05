@@ -18,7 +18,7 @@ class BookPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Book $book): bool
+    public function view(?User $user, Book $book): bool
     {
         return true;
     }
