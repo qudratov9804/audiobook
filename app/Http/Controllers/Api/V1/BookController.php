@@ -17,8 +17,9 @@ class BookController extends Controller
     /**
      * List books
      *
-     * Paginated, filterable list of books. Supports `q`, `category_id`,
-     * `language_id`, `sort` and `per_page` query parameters.
+     * Paginated, filterable list of books. Supports `q`, `author`,
+     * `category_id`, `language_id`, `user_id`, `rating`, `min_rating`,
+     * `min_duration`, `max_duration`, `sort` and `per_page` query parameters.
      */
     public function index(BookIndexRequest $request): JsonResponse
     {

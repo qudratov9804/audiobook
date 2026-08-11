@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 
 #[Fillable([
     'user_id', 'category_id', 'language_id', 'title', 'slug',
-    'author', 'description', 'cover_path', 'duration',
+    'author', 'description', 'cover_path', 'duration', 'rating',
 ])]
 class Book extends Model
 {
@@ -23,6 +23,7 @@ class Book extends Model
     {
         return [
             'duration' => 'integer',
+            'rating' => 'integer',
         ];
     }
 

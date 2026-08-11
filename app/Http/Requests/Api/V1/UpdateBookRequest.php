@@ -28,6 +28,7 @@ class UpdateBookRequest extends FormRequest
             'description' => ['nullable', 'string'],
             'category_id' => ['nullable', 'integer', 'exists:categories,id'],
             'language_id' => ['nullable', 'integer', 'exists:languages,id'],
+            'rating' => ['nullable', 'integer', 'min:0', 'max:5'],
         ];
     }
 }

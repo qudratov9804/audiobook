@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Books\Pages;
 
-use App\Filament\Resources\Books\BookMediaActions;
 use App\Filament\Resources\Books\BookResource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
@@ -16,7 +15,6 @@ class EditBook extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            BookMediaActions::uploadCover(),
             DeleteAction::make(),
             ForceDeleteAction::make(),
             RestoreAction::make(),

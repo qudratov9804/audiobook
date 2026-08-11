@@ -36,6 +36,36 @@ class BookTest extends TestCase
         $this->assertCount(2, $response->json('data'));
     }
 
+    public function test_user_can_filter_books_by_rating(): void
+    {
+        $user = $this->actingAsApiUser();
+
+        Book::factory()->count(2)->create(['user_id' => $user->id, 'rating' => 5]);
+        Book::factory()->create(['user_id' => $user->id, 'rating' => 2]);
+
+        $response = $this->getJson('/api/v1/books?rating=5');
+
+        $response->assertOk();
+        $this->assertCount(2, $response->json('data'));
+        $this->assertSame(5, $response->json('data.0.rating'));
+    }
+
+    public function test_user_can_filter_books_by_min_rating_and_sort_by_rating(): void
+    {
+        $user = $this->actingAsApiUser();
+
+        Book::factory()->create(['user_id' => $user->id, 'rating' => 1]);
+        Book::factory()->create(['user_id' => $user->id, 'rating' => 3]);
+        Book::factory()->create(['user_id' => $user->id, 'rating' => 5]);
+
+        $response = $this->getJson('/api/v1/books?min_rating=3&sort=-rating');
+
+        $response->assertOk();
+        $this->assertCount(2, $response->json('data'));
+        $this->assertSame(5, $response->json('data.0.rating'));
+        $this->assertSame(3, $response->json('data.1.rating'));
+    }
+
     public function test_user_can_view_a_book(): void
     {
         $user = $this->actingAsApiUser();

@@ -21,6 +21,7 @@ class BookResource extends JsonResource
             'author' => $this->author,
             'description' => $this->description,
             'duration' => $this->duration,
+            'rating' => $this->rating,
             'cover_url' => $this->cover_path ? asset('storage/'.$this->cover_path) : null,
             'category' => new CategoryResource($this->whenLoaded('category')),
             'language' => new LanguageResource($this->whenLoaded('language')),

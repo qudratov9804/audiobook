@@ -18,7 +18,7 @@ class BookResourceFileUploadTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_admin_can_upload_a_cover_independently(): void
+    public function test_admin_can_upload_a_cover_from_the_edit_form(): void
     {
         Storage::fake('public');
 
@@ -29,8 +29,9 @@ class BookResourceFileUploadTest extends TestCase
 
         Livewire::actingAs($admin)
             ->test(EditBook::class, ['record' => $book->getRouteKey()])
-            ->callAction('uploadCover', data: ['cover_path' => [$cover]])
-            ->assertHasNoActionErrors();
+            ->fillForm(['cover_path' => [$cover]])
+            ->call('save')
+            ->assertHasNoFormErrors();
 
         $book->refresh();
         $this->assertNotNull($book->cover_path);

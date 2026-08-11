@@ -22,6 +22,10 @@ class BookRepository implements BookRepositoryInterface
             });
         }
 
+        if ($author = $filters['author'] ?? null) {
+            $query->where('author', 'like', "%{$author}%");
+        }
+
         if ($categoryId = $filters['category_id'] ?? null) {
             $query->where('category_id', $categoryId);
         }
@@ -34,11 +38,25 @@ class BookRepository implements BookRepositoryInterface
             $query->where('user_id', $userId);
         }
 
+        if (isset($filters['rating'])) {
+            $query->where('rating', $filters['rating']);
+        } elseif (isset($filters['min_rating'])) {
+            $query->where('rating', '>=', $filters['min_rating']);
+        }
+
+        if (isset($filters['min_duration'])) {
+            $query->where('duration', '>=', $filters['min_duration']);
+        }
+
+        if (isset($filters['max_duration'])) {
+            $query->where('duration', '<=', $filters['max_duration']);
+        }
+
         $sort = $filters['sort'] ?? '-created_at';
         $direction = str_starts_with($sort, '-') ? 'desc' : 'asc';
         $column = ltrim($sort, '-');
 
-        if (in_array($column, ['title', 'created_at', 'duration'], true)) {
+        if (in_array($column, ['title', 'created_at', 'duration', 'rating'], true)) {
             $query->orderBy($column, $direction);
         } else {
             $query->latest();

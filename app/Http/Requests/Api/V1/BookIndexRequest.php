@@ -24,8 +24,14 @@ class BookIndexRequest extends FormRequest
     {
         return [
             'q' => ['sometimes', 'string', 'max:255'],
+            'author' => ['sometimes', 'string', 'max:255'],
             'category_id' => ['sometimes', 'integer', 'exists:categories,id'],
             'language_id' => ['sometimes', 'integer', 'exists:languages,id'],
+            'user_id' => ['sometimes', 'integer', 'exists:users,id'],
+            'rating' => ['sometimes', 'integer', 'min:0', 'max:5'],
+            'min_rating' => ['sometimes', 'integer', 'min:0', 'max:5'],
+            'min_duration' => ['sometimes', 'integer', 'min:0'],
+            'max_duration' => ['sometimes', 'integer', 'min:0', 'gte:min_duration'],
             'sort' => ['sometimes', 'string'],
             'per_page' => ['sometimes', 'integer', 'min:1', 'max:100'],
             'page' => ['sometimes', 'integer', 'min:1'],

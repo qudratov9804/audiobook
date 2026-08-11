@@ -15,7 +15,9 @@ class SearchController extends Controller
     /**
      * Global search
      *
-     * Full-text style search across book titles, authors and descriptions.
+     * Full-text style search across book titles, authors and descriptions,
+     * refinable with `author`, `category_id`, `language_id`, `user_id`,
+     * `rating`, `min_rating`, `min_duration`, `max_duration` and `sort`.
      */
     public function index(SearchRequest $request): JsonResponse
     {

@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Books\Tables;
 
-use App\Filament\Resources\Books\BookMediaActions;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -48,6 +47,10 @@ class BooksTable
                     ->numeric()
                     ->sortable()
                     ->formatStateUsing(fn (?int $state) => $state ? gmdate('H:i:s', $state) : '—'),
+                TextColumn::make('rating')
+                    ->label('Reyting')
+                    ->sortable()
+                    ->formatStateUsing(fn (?int $state) => $state ? str_repeat('⭐', $state) : '—'),
                 TextColumn::make('created_at')
                     ->label('Yaratilgan')
                     ->dateTime()
@@ -71,11 +74,20 @@ class BooksTable
                 SelectFilter::make('language_id')
                     ->relationship('language', 'name')
                     ->label('Til'),
+                SelectFilter::make('rating')
+                    ->label('Reyting')
+                    ->options([
+                        0 => 'Baholanmagan',
+                        1 => '⭐',
+                        2 => '⭐⭐',
+                        3 => '⭐⭐⭐',
+                        4 => '⭐⭐⭐⭐',
+                        5 => '⭐⭐⭐⭐⭐',
+                    ]),
                 TrashedFilter::make(),
             ])
             ->recordActions([
                 EditAction::make(),
-                BookMediaActions::uploadCover(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
