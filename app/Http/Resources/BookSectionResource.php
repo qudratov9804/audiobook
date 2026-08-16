@@ -21,6 +21,10 @@ class BookSectionResource extends JsonResource
             'format' => $this->format,
             'duration' => $this->duration,
             'size' => $this->size,
+            'url' => route('api.v1.books.sections.stream', [
+                'book' => $this->book_id,
+                'section' => $this->id,
+            ]),
             'created_at' => $this->created_at,
         ];
     }

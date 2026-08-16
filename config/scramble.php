@@ -50,7 +50,7 @@ return [
         /*
          * Description rendered on the home page of the API documentation (`/docs/api`).
          */
-        'description' => "REST API for the AI Audiobook Platform.\n\nAuthenticate via `POST /api/v1/login` to receive a Sanctum bearer token, then send it as `Authorization: Bearer {token}` on subsequent requests.",
+        'description' => 'REST API for the AI Audiobook Platform. All endpoints are public and require no authentication.',
     ],
 
     'ui' => [
